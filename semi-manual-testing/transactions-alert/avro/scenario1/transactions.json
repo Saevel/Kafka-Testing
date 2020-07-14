@@ -1,0 +1,4 @@
+{"id": 1111, "amount": 3421.12, "outgoing": true, "country": {"string": "Poland"}, "userId": {"long": 123}, "type":"withdrawal"}
+{"id": 2222, "amount": 3431.12, "outgoing": true, "country": {"string": "Brazil"}, "userId": {"long": 123}, "type":"withdrawal"}
+{"id": 3333, "amount": 3422.12, "outgoing": true, "country": {"string": "Poland"}, "userId": {"long": 321}, "type":"withdrawal"}
+{"id": 4444, "amount": 5321.12, "outgoing": true, "country": {"string": "Poland"}, "userId": {"long": 321}, "type":"withdrawal"}

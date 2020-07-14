@@ -1,0 +1,15 @@
+# Project exclude paths
+/.gradle/
+/automated-testing/build/
+/automated-testing/build/classes/
+/automated-testing/build/classes/java/main/
+/automated-testing/build/classes/java/test/
+/automated-testing/build/reports/
+/automated-testing/build/resources/
+/automated-testing/build/test-results/
+/automated-testing/build/tmp/
+/transaction-alert/build/
+/transaction-alert/build/classes/
+/transaction-alert/build/classes/java/main/
+/transaction-alert/build/resources/
+/transaction-alert/build/tmp/

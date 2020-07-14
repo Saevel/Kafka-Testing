@@ -1,0 +1,6 @@
+---
+schema.registry.url: http://localhost:8081
+kafka:
+  test.timeout.ms: 1500
+  group.id: testGroup
+  bootstrap.servers: 127.0.0.1:9092

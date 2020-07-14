@@ -1,0 +1,56 @@
+group 'prv.saevel.kafka.academy'
+
+version '1.0'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://packages.confluent.io/maven/" }
+        maven { url "https://plugins.gradle.org/m2/"}
+    }
+    dependencies {
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.9.1"
+        classpath(group: 'gradle.plugin.com.github.imflog', name: 'kafka-schema-registry-gradle-plugin', version: '0.5.0')
+        classpath "io.freefair.gradle:lombok-plugin:5.1.0"
+    }
+}
+
+apply plugin: "com.commercehub.gradle.plugin.avro"
+apply plugin: "java"
+apply plugin: "com.github.imflog.kafka-schema-registry-gradle-plugin"
+apply plugin: "io.freefair.lombok"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://packages.confluent.io/maven/" }
+}
+
+dependencies {
+    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.3.0'
+    compile group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '5.3.0'
+    compile group: 'org.apache.avro', name: 'avro', version: '1.10.0'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
+    testCompile group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '2.3.0'
+}
+
+schemaRegistry {
+    url = 'http://localhost:8081'
+    register {
+        subject('users-value', 'transaction-alert/src/main/resources/avro/User.avsc')
+        subject('transactions-value', 'transaction-alert/src/main/resources/avro/Transaction.avsc')
+        subject('alerts-value', 'transaction-alert/src/main/resources/avro/Alert.avsc')
+    }
+}
+
+tasks.register("generateAvro", com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/main/resources/avro")
+    outputDir = file("build/generated-sources")
+}
+
+sourceSets.main.java.srcDirs += file("build/generated-sources")

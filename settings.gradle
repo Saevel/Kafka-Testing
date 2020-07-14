@@ -1,0 +1,5 @@
+rootProject.name = 'Kafka-Testing'
+include 'transaction-alert'
+include 'automated-testing'
+include 'semi-manual-testing'
+

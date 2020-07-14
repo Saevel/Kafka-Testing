@@ -1,0 +1,11 @@
+{
+     "type": "record",
+     "name": "Alert",
+     "namespace": "prv.saevel.kafka.academy.testing.transaction.alert",
+     "fields": [
+         {"name": "userId", "type": "long"},
+         {"name": "transactionId", "type": "long"},
+         {"name": "code", "type": "long"},
+         {"name": "message", "type": "string"}
+     ]
+ }
