@@ -8,4 +8,4 @@
          {"name": "code", "type": "long"},
          {"name": "message", "type": "string"}
      ]
- }
+}

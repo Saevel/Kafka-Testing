@@ -1,6 +1,7 @@
 package prv.saevel.kafka.academy.automation;
 
 import lombok.AllArgsConstructor;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import reactor.kafka.receiver.KafkaReceiver;
 import reactor.kafka.receiver.ReceiverRecord;
@@ -9,7 +10,7 @@ import reactor.test.StepVerifier;
 import java.time.Duration;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -43,6 +44,15 @@ public class KafkaAssertions<K, V> {
 
     public void expectKeyAndValue(Duration timeout, K key, V value, String message){
         assertKeyValue(timeout, equalTo(new Pair<>(key, value)), message);
+    }
+
+    public void expectNoSuchKeyAndValue(Duration timeout, K key, V value, String message){
+        StepVerifier.create(receiver.receive().buffer(timeout))
+                .assertNext(records -> assertThat(
+                        records.stream().map(this::toPair).collect(Collectors.toList()),
+                        not(hasItem(new Pair<>(key, value)))
+                )).thenCancel()
+                .verify();
     }
 
     private <K, V>Pair<K, V> toPair(ReceiverRecord<K, V> record){

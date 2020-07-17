@@ -57,6 +57,10 @@ schemaRegistry {
     }
 }
 
+avro {
+    stringType = "CharSequence"
+}
+
 tasks.register("generateAvro", com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
     source("build/resources/avro")
     outputDir = file("build/generated-sources")

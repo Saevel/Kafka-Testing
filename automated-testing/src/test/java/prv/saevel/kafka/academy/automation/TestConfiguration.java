@@ -1,9 +1,13 @@
 package prv.saevel.kafka.academy.automation;
 
+import io.confluent.kafka.serializers.AbstractKafkaAvroDeserializer;
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import prv.saevel.kafka.academy.testing.transaction.alert.Alert;
+import prv.saevel.kafka.academy.testing.transaction.alert.Transaction;
+import prv.saevel.kafka.academy.testing.transaction.alert.User;
 import reactor.kafka.receiver.ReceiverOptions;
 import reactor.kafka.sender.KafkaSender;
 import reactor.kafka.sender.SenderOptions;
@@ -47,12 +53,37 @@ public class TestConfiguration {
     }
 
     @Bean
+    public KafkaSender<Long, User> userSender(@Autowired @Qualifier("producerConfig") HashMap<String, Object> producerConfig,
+                                              @Value("${schema.registry.url}") String schemaRegistryUrl){
+        HashMap<String, Object> config = (HashMap<String, Object>)producerConfig.clone();
+
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
+        config.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+        config.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
+        return KafkaSender.create(SenderOptions.create(config));
+    }
+
+    @Bean
+    public KafkaSender<Long, Transaction> transactionSender(@Autowired @Qualifier("producerConfig") HashMap<String, Object> producerConfig,
+                                                            @Value("${schema.registry.url}") String schemaRegistryUrl){
+        HashMap<String, Object> config = (HashMap<String, Object>)producerConfig.clone();
+
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
+        config.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryUrl);
+        config.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
+        return KafkaSender.create(SenderOptions.create(config));
+    }
+
+    @Bean
     public ReceiverOptions<Long, Alert> alertReceiverOptions(@Autowired @Qualifier("consumerConfig") HashMap<String, Object> consumerConfig,
                                                              @Value("${schema.registry.url}") String schemaRegistryUrl){
         HashMap<String, Object> config = (HashMap<String, Object>) consumerConfig.clone();
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class.getName());
         config.put("schema.registry.url", schemaRegistryUrl);
+        config.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
 
         return ReceiverOptions.create(config);
     }

@@ -4,3 +4,15 @@ kafka:
   test.timeout.ms: 1500
   group.id: testGroup
   bootstrap.servers: 127.0.0.1:9092
+  topics:
+    users: users
+    transactions: transactions
+    alerts: alerts
+    splitter:
+      input: splitter-input
+      output: splitter-output
+
+errors:
+  transactions.from.different.countries.in.short.succession:
+    code: 12
+    message: Two transactions from different counties in short time succession

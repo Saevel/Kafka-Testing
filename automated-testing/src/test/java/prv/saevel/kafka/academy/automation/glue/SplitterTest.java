@@ -33,14 +33,22 @@ public class SplitterTest {
     @Value("${kafka.test.timeout.ms}")
     private long kafkaTestTimeoutMs;
 
-    @When("a message with key: {word} and value: {word} is sent to the Kafka topic: {word}")
-    public void whenMessageSentToKafka(String key, String value, String topic){
-        sender.send(Mono.just(SenderRecord.create(new ProducerRecord<>(topic, key, value), null))).blockLast();
+    @Value("${kafka.topics.splitter.input}")
+    private String splitterInputTopic;
+
+    @Value("${kafka.topics.splitter.output}")
+    private String splitterOutputTopic;
+
+    @When("a message with key: {word} and value: {word} is sent to the Splitter input topic")
+    public void whenMessageSentToKafka(String key, String value){
+        sender.send(
+                Mono.just(SenderRecord.create(new ProducerRecord<>(splitterInputTopic, key, value), null))
+        ).blockLast();
     }
 
-    @Then("there should be a message with key: {word} and value: {word} on the {word} topic")
-    public void thenMessageReceivedFromKafka(String key, String value, String topic){
-        new KafkaAssertions<>(KafkaReceiver.create(receiverOptions.subscription(Arrays.asList(topic))))
+    @Then("there should be a message with key: {word} and value: {word} on the Splitter output topic")
+    public void thenMessageReceivedFromKafka(String key, String value){
+        new KafkaAssertions<>(KafkaReceiver.create(receiverOptions.subscription(Arrays.asList(splitterOutputTopic))))
                 .expectKeyAndValue(Duration.ofMillis(kafkaTestTimeoutMs), key, value);
     }
 }

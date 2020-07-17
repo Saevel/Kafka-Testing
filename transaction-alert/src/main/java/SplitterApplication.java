@@ -1,4 +1,3 @@
-import io.confluent.kafka.streams.serdes.avro.GenericAvroSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -15,13 +14,15 @@ public class SplitterApplication {
 
     public static final String SPLIT_REGEX = ",";
 
+    public static final String APPLICATION_ID = "Splitter";
+
     public static void main(String[] args){
 
         Properties properties = new Properties();
         properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, Environment.BOOTSTRAP_SERVERS);
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.StringSerde.class.getName());
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.StringSerde.class.getName());
-        properties.put(StreamsConfig.APPLICATION_ID_CONFIG, "Splitter");
+        properties.put(StreamsConfig.APPLICATION_ID_CONFIG, APPLICATION_ID);
 
         StreamsConfig config = new StreamsConfig(properties);
 
