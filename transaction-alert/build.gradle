@@ -20,6 +20,7 @@ apply plugin: "com.commercehub.gradle.plugin.avro"
 apply plugin: "java"
 apply plugin: "com.github.imflog.kafka-schema-registry-gradle-plugin"
 apply plugin: "io.freefair.lombok"
+apply plugin: "application"
 
 sourceCompatibility = 1.8
 
@@ -48,9 +49,29 @@ schemaRegistry {
     }
 }
 
+task runSplitter(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "prv.saevel.kafka.academy.SplitterApplication"
+}
+
+task runTransactionsAlert(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "prv.saevel.kafka.academy.TransactionsAlertApplication"
+}
+
 tasks.register("generateAvro", com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
     source("src/main/resources/avro")
     outputDir = file("build/generated-sources")
 }
 
 sourceSets.main.java.srcDirs += file("build/generated-sources")
+
+tasks.findByName("generateAvro").dependsOn("registerSchemasTask")
+tasks.findByName("compileJava").dependsOn(tasks.findByName("generateAvro"))
+
+runSplitter.dependsOn(build)
+runTransactionsAlert.dependsOn(build)

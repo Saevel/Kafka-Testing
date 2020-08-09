@@ -1,0 +1,4 @@
+12345:{"id":12345,"amount":345.32,"outgoing": true, "type": "withdrawal", "country": "Brazil", "userId": 123}
+54321:{"id":54321,"amount":353.53,"outgoing": true, "type": "withdrawal", "country": "Poland", "userId": 123}
+11111:{"id":11111,"amount":947.32,"outgoing": true, "type": "withdrawal", "country": "France", "userId": 321}
+22222:{"id":22222,"amount":635.73,"outgoing": true, "type": "withdrawal", "country": "France", "userId": 321}

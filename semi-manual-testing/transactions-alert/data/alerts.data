@@ -1,0 +1,2 @@
+123:{"userId":123,"transactionId":12345,"code":12,"message":"Two transactions from different counties in short time succession"}
+123:{"userId":123,"transactionId":54321,"code":12,"message":"Two transactions from different counties in short time succession"}
