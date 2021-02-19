@@ -90,8 +90,8 @@ tasks.named("compileJava").configure {
 }
 
 sourceSets.main.java.srcDirs += file("build/generated-sources")
-
 tasks.findByName("generateAvro").dependsOn("downloadSchemasTask")
+
 tasks.findByName("compileJava").dependsOn(tasks.findByName("generateAvro"))
 
 cucumberTest.dependsOn(compileJava)

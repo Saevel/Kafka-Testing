@@ -26,8 +26,8 @@ public class SplitterTestSteps {
     @Autowired
     private KafkaReceiver<String, String> receiver;
 
-    // @Value("${kafka.test.timeout.ms}")
-    private long kafkaTestTimeoutMs = 300;
+    @Value("${kafka.test.timeout.ms}")
+    private long kafkaTestTimeoutMs;
 
     @Value("${kafka.topics.splitter.input}")
     private String splitterInputTopic;

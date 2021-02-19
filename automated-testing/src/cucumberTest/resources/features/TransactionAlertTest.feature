@@ -11,5 +11,5 @@ Feature: Transactions Alert
 
     Examples:
       | user_id | email            | phone_number | transaction_id1 | transaction_id2 | amount1 | amount2 | type1       | type2     | country1 | country2  |
-      | 4321    | kamil@random.pl  | +48321533211 | 5555            | 6666            | 321.45  | 456.32  | widthdrawal | insertion | Poland   | Brazil    |
+      | 4321    | kamil@random.pl  | +48321533211 | 5555            | 6666            | 321.45  | 456.32  | withdrawal  | insertion | Poland   | Brazil    |
       | 0000    | random@random.pl | +48654234654 | 7777            | 5354363         | 842.73  | 763.53  | insertion   | insertion | Germany  | Lithuania |
