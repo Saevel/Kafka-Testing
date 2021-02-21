@@ -1,4 +1,4 @@
 12345:{"id":12345,"amount":345.32,"outgoing": true, "type": "withdrawal", "country": null, "userId": null}
-54321:{"id":54321,"amount":353.53,"outgoing": true, "type": "withdrawal", "country": {"value": "Poland"}, "userId": {"value": 123}}
-11111:{"id":11111,"amount":947.32,"outgoing": true, "type": "withdrawal", "country": {"value": "France"}, "userId": {"value": 321}}
-22222:{"id":22222,"amount":635.73,"outgoing": true, "type": "withdrawal", "country": {"value": "France"}, "userId": {"value": 321}}
+54321:{"id":54321,"amount":353.53,"outgoing": true, "type": "withdrawal", "country": {"string": "Poland"}, "userId": {"long": 123}}
+11111:{"id":11111,"amount":947.32,"outgoing": true, "type": "withdrawal", "country": {"string": "France"}, "userId": {"long": 321}}
+22222:{"id":22222,"amount":635.73,"outgoing": true, "type": "withdrawal", "country": {"string": "France"}, "userId": {"long": 321}}

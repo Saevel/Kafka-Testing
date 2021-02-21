@@ -1,2 +1,2 @@
-123:{"id":123,"email":{"value": "user1@website.com"}, "phoneNumber": {"value":"+6512345678"}}
-321:{"id":321,"email":{"value": "user2@website.com"}, "phoneNumber": {"value": "+6587654321"}}
+123:{"id":123,"email":{"string": "user1@website.com"}, "phoneNumber": {"string": "+6512345678"}}
+321:{"id":321,"email":{"string": "user2@website.com"}, "phoneNumber": {"string": "+6587654321"}}

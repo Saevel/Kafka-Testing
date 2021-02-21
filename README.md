@@ -38,6 +38,23 @@ Make sure you configure the "kafka.bootstrap.servers" property both in the "prv.
 inside the "transaction-alert" project and the "src/cucumberTest/resources/application.yml" file inside the 
 "automated-testing" project to point towards your Kafka bootstrap servers.
 
+Create the Kafka topics required to start tested applications, which are:
+
+* splitter-input
+* splitter-output
+* users
+* users_rekeyed
+* transactions
+* alerts
+
+You can do it from the Confluent Control Center or log
+into the broker Docker container with:
+
+    docker exec -it broker bash
+    
+and then execute the contents of the "transaction-alert/src/main/resources/scripts/create-topics.sh" to have all the 
+topics created.
+
 
 ## Running the tested apps
 
