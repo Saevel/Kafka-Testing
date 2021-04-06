@@ -2,3 +2,4 @@
 54321:{"id":54321,"amount":353.53,"outgoing": true, "type": "withdrawal", "country": {"string": "Poland"}, "userId": {"long": 123}}
 11111:{"id":11111,"amount":947.32,"outgoing": true, "type": "withdrawal", "country": {"string": "France"}, "userId": {"long": 321}}
 22222:{"id":22222,"amount":635.73,"outgoing": true, "type": "withdrawal", "country": {"string": "France"}, "userId": {"long": 321}}
+33333:{"id":33333,"amount":1505.73,"outgoing": true, "type": "withdrawal", "country": {"string": "Germany"}, "userId": {"long": 321}}
