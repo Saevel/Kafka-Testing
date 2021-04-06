@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 public class TransactionsAlertApplication {
 
-    public static final Duration ANALYSIS_WINDOW = Duration.ofMinutes(15);
+    public static final Duration ANALYSIS_WINDOW = Duration.ofMinutes(2);
 
     public static final String USERS_TOPIC = "users";
 
